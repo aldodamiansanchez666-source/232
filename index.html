@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CARS MOTORSPORT — Renta de Autos de Lujo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-obsidian: #07090d;
+  --bg-elevated: #0e1219;
+  --bg-card: #121722;
+  --gold: #d4af37;
+  --gold-light: #f3d678;
+  --gold-dim: rgba(212, 175, 55, 0.16);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-gold: rgba(212, 175, 55, 0.35);
+  --danger: #ef4444;
+  --success: #10b981;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-obsidian);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.09), transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(56, 189, 248, 0.06), transparent 45%);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+h1, h2, h3, .brand-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: 0.4px;
+}
+
+/* ================= PANTALLA DE LOGIN ================= */
+#pantalla-login {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.14), transparent 55%),
+    linear-gradient(160deg, #06080c 0%, #0d121c 60%, #07090d 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 24px;
+}
+
+.login-caja {
+  background: rgba(16, 21, 32, 0.88);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 42px 36px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  text-align: center;
+}
+
+.login-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.2px;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.login-caja h2 {
+  font-size: 34px;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.login-caja p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.campo-grupo {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.campo-grupo label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.campo-grupo input,
+.campo-grupo select {
+  width: 100%;
+  padding: 13px 15px;
+  background: rgba(7, 9, 13, 0.75);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.campo-grupo input:focus,
+.campo-grupo select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16);
+}
+
+.btn-oro {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, #b38b1d 100%);
+  color: #090b10;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.4px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.22);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-oro:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 175, 55, 0.34);
+  filter: brightness(1.04);
+}
+
+.mensaje-error {
+  color: #fca5a5;
+  background-color: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 16px;
+  display: none;
+}
+
+/* ================= CONTENEDOR PRINCIPAL ================= */
+.principal {
+  display: none;
+  width: 1240px;
+  max-width: 94%;
+  margin: 28px auto 48px;
+  background: rgba(14, 18, 25, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+}
+
+.principal.visible {
+  display: block;
+}
+
+/* ================= BARRA DE NAVEGACIÓN ================= */
+nav {
+  position: sticky;
+  top: 14px;
+  z-index: 100;
+  margin-bottom: 22px;
+  padding: 10px 18px;
+  background: rgba(10, 13, 20, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.marca-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.marca-logo span.icono-oro {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.marca-logo strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: var(--gold-light);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  display: inline-block;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: var(--gold-light);
+  background: var(--gold-dim);
+  border-color: var(--border-gold);
+}
+
+nav a.btn-salir {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+nav a.btn-salir:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fff;
+}
+
+/* ================= HERO / ENCABEZADO ================= */
+header.hero {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 28px;
+}
+
+header.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.62) contrast(1.06);
+  transition: transform 0.8s ease;
+}
+
+header.hero:hover img {
+  transform: scale(1.03);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(7, 9, 13, 0.92) 0%, rgba(7, 9, 13, 0.55) 55%, rgba(7, 9, 13, 0.2) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  max-width: 720px;
+}
+
+.hero-etiqueta {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.hero-overlay h1 {
+  font-size: 48px;
+  line-height: 1.08;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+.hero-overlay p {
+  color: #cbd5e1;
+  font-size: 16px;
+  margin-bottom: 24px;
+  max-width: 540px;
+}
+
+.hero-acciones {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.btn-secundario:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+/* ================= BENEFICIOS RÁPIDOS ================= */
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.beneficio-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+
+.beneficio-item strong {
+  display: block;
+  color: var(--gold-light);
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.beneficio-item span {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ================= FLOTA / CONTENIDO ================= */
+.seccion-flota {
+  padding: 10px 4px 20px;
+}
+
+.encabezado-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.encabezado-seccion h2 {
+  font-size: 38px;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.encabezado-seccion p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filtro-btn {
+  padding: 9px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filtro-btn:hover,
+.filtro-btn.activo {
+  color: #090b10;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.grid-autos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tarjeta-auto {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-auto:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-gold);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
+}
+
+.tarjeta-auto img {
+  width: 100%;
+  height: 195px;
+  object-fit: cover;
+}
+
+.tarjeta-cuerpo {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tarjeta-categoria {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.tarjeta-cuerpo h3 {
+  font-size: 25px;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.tarjeta-desc {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.tarjeta-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.precio-dia strong {
+  color: var(--gold-light);
+  font-size: 18px;
+}
+
+.precio-dia span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.btn-reservar {
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-gold);
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-reservar:hover {
+  background: var(--gold);
+  color: #090b10;
+}
+
+/* ================= RESERVA Y CONTACTO ================= */
+.panel-inferior {
+  margin-top: 38px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 22px;
+}
+
+.caja-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.caja-panel h3 {
+  font-size: 28px;
+  margin-bottom: 14px;
+  color: var(--text-main);
+}
+
+.fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.aviso-reserva {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  display: none;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+@media (max-width: 900px) {
+  .beneficios,
+  .grid-autos,
+  .panel-inferior,
+  .fila-doble {
+    grid-template-columns: 1fr;
+  }
+  header.hero {
+    height: auto;
+    min-height: 360px;
+  }
+  .hero-overlay {
+    position: static;
+    padding: 32px 24px;
+    max-width: none;
+  }
+  .hero-overlay h1 {
+    font-size: 36px;
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- ================= PANTALLA DE LOGIN ================= -->
+  <section id="pantalla-login">
+    <form class="login-caja" id="form-login">
+      <div class="login-badge">Acceso Privado</div>
+      <h2>CARS MOTORSPORT</h2>
+      <p>Inicia sesión para explorar nuestra flota exclusiva y gestionar reservas.</p>
+
+      <div class="campo-grupo">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username" required>
+      </div>
+
+      <div class="campo-grupo">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••" autocomplete="current-password" required>
+      </div>
+
+      <button type="submit" class="btn-oro">Entrar al Portal</button>
+
+      <div class="mensaje-error" id="error-login">
+        Usuario o contraseña incorrectos.
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= CONTENEDOR PRINCIPAL ================= -->
+  <div class="principal" id="contenedor-principal">
+    <nav>
+      <a href="#inicio" class="marca-logo">
+        <span class="icono-oro">C</span>
+        <strong>CARS MOTORSPORT</strong>
+      </a>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#flota">Flota</a></li>
+        <li><a href="#reservar">Reservar</a></li>
+        <li><a href="#contacto">Concierge</a></li>
+        <li><a href="#" class="btn-salir" id="btn-salir">Cerrar sesión</a></li>
+      </ul>
+    </nav>
+
+    <header class="hero" id="inicio">
+      <img src="https://cdn-ds.com/blogs-media/sites/492/2024/10/11080149/Side-view-of-the-Porsche-911-4-GTS-Black_B3_o.jpg" alt="Porsche deportivo negro en estudio oscuro">
+      <div class="hero-overlay">
+        <span class="hero-etiqueta">Experiencia Automotriz de Alta Gama</span>
+        <h1>Conduce lo extraordinario</h1>
+        <p>Superdeportivos, SUVs ejecutivos y gran turismo entregados donde estés con atención concierge 24/7.</p>
+        <div class="hero-acciones">
+          <a href="#flota" class="btn-oro" style="width:auto;">Ver Flota Disponible</a>
+          <a href="#reservar" class="btn-secundario">Solicitar Reserva</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="beneficios">
+      <div class="beneficio-item">
+        <strong>Entrega a Domicilio y Aeropuerto</strong>
+        <span>Recepción y devolución coordinada sin filas ni esperas.</span>
+      </div>
+      <div class="beneficio-item">
+        <strong>Cobertura Integral Incluida</strong>
+        <span>Póliza premium con asistencia en carretera las 24 horas.</span>
+      </div>
+      <div class="beneficio-item">
+        <strong>Flota Certificada y Actualizada</strong>
+        <span>Mantenimiento de agencia y revisión técnica antes de cada entrega.</span>
+      </div>
+    </section>
+
+    <section class="seccion-flota" id="flota">
+      <div class="encabezado-seccion">
+        <div>
+          <h2>Nuestra Flota</h2>
+          <p>Selecciona una categoría para filtrar los vehículos disponibles.</p>
+        </div>
+        <div class="filtros" id="filtros-flota">
+          <button type="button" class="filtro-btn activo" data-categoria="todos">Todos</button>
+          <button type="button" class="filtro-btn" data-categoria="deportivo">Deportivos</button>
+          <button type="button" class="filtro-btn" data-categoria="suv">SUV de Lujo</button>
+          <button type="button" class="filtro-btn" data-categoria="gt">Gran Turismo</button>
+        </div>
+      </div>
+
+      <div class="grid-autos" id="grid-autos"></div>
+    </section>
+
+    <section class="panel-inferior" id="reservar">
+      <div class="caja-panel">
+        <h3>Reserva Rápida</h3>
+        <form id="form-reserva">
+          <div class="fila-doble">
+            <div class="campo-grupo">
+              <label for="nombre-cliente">Tu nombre</label>
+              <input type="text" id="nombre-cliente" placeholder="Nombre completo" required>
+            </div>
+            <div class="campo-grupo">
+              <label for="telefono-cliente">Tu teléfono</label>
+              <input type="tel" id="telefono-cliente" placeholder="Ej. 55 1234 5678" required>
+            </div>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="auto-seleccionado">Vehículo</label>
+            <select id="auto-seleccionado"></select>
+          </div>
+
+          <div class="fila-doble">
+            <div class="campo-grupo">
+              <label for="fecha-inicio">Fecha de entrega</label>
+              <input type="date" id="fecha-inicio" required>
+            </div>
+            <div class="campo-grupo">
+              <label for="dias-renta">Días de renta</label>
+              <input type="number" id="dias-renta" min="1" max="30" value="3" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-oro">Enviar Reserva por WhatsApp</button>
+          <div class="aviso-reserva" id="aviso-reserva"></div>
+        </form>
+      </div>
+
+      <div class="caja-panel" id="contacto">
+        <h3>Concierge Directo</h3>
+        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 14px;">
+          ¿Necesitas un traslado ejecutivo, evento privado o renta por semanas? Nuestro equipo te atiende de inmediato.
+        </p>
+        <p style="font-size: 14px; margin-bottom: 8px;"><strong>Horario:</strong> Lunes a Domingo, 24 hrs</p>
+        <p style="font-size: 14px; margin-bottom: 8px;"><strong>Correo:</strong> concierge@carsmotorsport.mx</p>
+        <p style="font-size: 14px; margin-bottom: 18px;"><strong>WhatsApp:</strong> +52 55 8439 5390</p>
+        <a href="https://wa.me/5215584395390?text=Hola%20CARS%20MOTORSPORT,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20renta%20de%20autos." target="_blank" rel="noopener" class="btn-oro">Escribir por WhatsApp</a>
+      </div>
+    </section>
+  </div>
+
+<script>
+const WHATSAPP_EMPRESA = '5215584395390';
+
+const AUTOS = [
+  {
+    id: 'porsche-911',
+    nombre: 'Porsche 911 Carrera GTS',
+    categoria: 'deportivo',
+    etiqueta: 'Deportivo',
+    descripcion: 'Motor bóxer biturbo, tracción trasera precisa y cabina enfocada al conductor.',
+    precioDia: 8500,
+    imagen: 'https://cdn-ds.com/blogs-media/sites/492/2024/10/11080149/Side-view-of-the-Porsche-911-4-GTS-Black_B3_o.jpg'
+  },
+  {
+    id: 'huracan-evo',
+    nombre: 'Lamborghini Huracán Evo',
+    categoria: 'deportivo',
+    etiqueta: 'Deportivo',
+    descripcion: 'Diseño aerodinámico radical, respuesta inmediata y presencia inconfundible.',
+    precioDia: 14500,
+    imagen: 'https://images.pexels.com/photos/27968215/pexels-photo-27968215/free-photo-of-a-black-and-white-photo-of-a-sports-car.jpeg?auto=compress&w=1260&h=750&dpr=1'
+  },
+  {
+    id: 'amg-gt',
+    nombre: 'Mercedes-AMG GT Coupé',
+    categoria: 'gt',
+    etiqueta: 'Gran Turismo',
+    descripcion: 'Equilibrio entre confort de largo recorrido, acabados artesanales y potencia V8.',
+    precioDia: 7900,
+    imagen: 'https://cdn-ds.com/blogs-media/sites/492/2024/10/11080149/Side-view-of-the-Porsche-911-4-GTS-Black_B3_o.jpg'
+  },
+  {
+    id: 'range-rover',
+    nombre: 'Range Rover Autobiography',
+    categoria: 'suv',
+    etiqueta: 'SUV de Lujo',
+    descripcion: 'Espacio interior de primera clase, suspensión neumática y aplomo en cualquier ruta.',
+    precioDia: 7200,
+    imagen: 'https://images.pexels.com/photos/27968215/pexels-photo-27968215/free-photo-of-a-black-and-white-photo-of-a-sports-car.jpeg?auto=compress&w=1260&h=750&dpr=1'
+  }
+];
+
+const pantallaLogin = document.getElementById('pantalla-login');
+const contenedorPrincipal = document.getElementById('contenedor-principal');
+const formLogin = document.getElementById('form-login');
+const errorLogin = document.getElementById('error-login');
+const btnSalir = document.getElementById('btn-salir');
+const gridAutos = document.getElementById('grid-autos');
+const selectAuto = document.getElementById('auto-seleccionado');
+const filtrosFlota = document.getElementById('filtros-flota');
+const formReserva = document.getElementById('form-reserva');
+const avisoReserva = document.getElementById('aviso-reserva');
+
+function formatoMXN(valor) {
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+    maximumFractionDigits: 0
+  }).format(valor);
+}
+
+function renderizarAutos(filtro = 'todos') {
+  const filtrados = filtro === 'todos'
+    ? AUTOS
+    : AUTOS.filter(auto => auto.categoria === filtro);
+
+  gridAutos.innerHTML = filtrados.map(auto => `
+    <article class="tarjeta-auto">
+      <img src="${auto.imagen}" alt="${auto.nombre}">
+      <div class="tarjeta-cuerpo">
+        <span class="tarjeta-categoria">${auto.etiqueta}</span>
+        <h3>${auto.nombre}</h3>
+        <p class="tarjeta-desc">${auto.descripcion}</p>
+        <div class="tarjeta-pie">
+          <div class="precio-dia">
+            <strong>${formatoMXN(auto.precioDia)}</strong>
+            <span>/ día</span>
+          </div>
+          <button type="button" class="btn-reservar" data-auto-id="${auto.id}">Reservar</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  gridAutos.querySelectorAll('.btn-reservar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectAuto.value = btn.dataset.autoId;
+      document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+}
+
+function poblarSelectAutos() {
+  selectAuto.innerHTML = AUTOS.map(auto =>
+    `<option value="${auto.id}">${auto.nombre} — ${formatoMXN(auto.precioDia)}/día</option>`
+  ).join('');
+}
+
+function mostrarPortal() {
+  pantallaLogin.style.display = 'none';
+  contenedorPrincipal.classList.add('visible');
+}
+
+function mostrarLogin() {
+  contenedorPrincipal.classList.remove('visible');
+  pantallaLogin.style.display = 'flex';
+  formLogin.reset();
+  errorLogin.style.display = 'none';
+}
+
+formLogin.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const usuario = document.getElementById('usuario').value.trim().toLowerCase();
+  const password = document.getElementById('password').value.trim();
+
+  if (usuario === 'cliente' && password === '1234') {
+    sessionStorage.setItem('cars_motorsport_auth', '1');
+    errorLogin.style.display = 'none';
+    mostrarPortal();
+  } else {
+    errorLogin.style.display = 'block';
+  }
+});
+
+btnSalir.addEventListener('click', (e) => {
+  e.preventDefault();
+  sessionStorage.removeItem('cars_motorsport_auth');
+  mostrarLogin();
+});
+
+filtrosFlota.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filtro-btn');
+  if (!btn) return;
+  filtrosFlota.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+  btn.classList.add('activo');
+  renderizarAutos(btn.dataset.categoria);
+});
+
+formReserva.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById('nombre-cliente').value.trim();
+  const telefono = document.getElementById('telefono-cliente').value.trim();
+  const auto = AUTOS.find(a => a.id === selectAuto.value);
+  const fecha = document.getElementById('fecha-inicio').value;
+  const dias = parseInt(document.getElementById('dias-renta').value, 10) || 1;
+  const total = auto.precioDia * dias;
+
+  const texto = [
+    'Hola CARS MOTORSPORT, quiero solicitar una reserva:',
+    `• Cliente: ${nombre}`,
+    `• Teléfono: ${telefono}`,
+    `• Vehículo: ${auto.nombre}`,
+    `• Fecha de entrega: ${fecha}`,
+    `• Días: ${dias}`,
+    `• Total estimado: ${formatoMXN(total)}`
+  ].join('\n');
+
+  avisoReserva.style.display = 'block';
+  avisoReserva.textContent = `Abriendo WhatsApp para enviar tu reserva de ${auto.nombre} (${formatoMXN(total)})...`;
+
+  window.open(`https://wa.me/${WHATSAPP_EMPRESA}?text=${encodeURIComponent(texto)}`, '_blank');
+});
+
+const inputFecha = document.getElementById('fecha-inicio');
+if (inputFecha) {
+  inputFecha.min = new Date().toISOString().split('T')[0];
+  inputFecha.value = inputFecha.min;
+}
+
+poblarSelectAutos();
+renderizarAutos();
+
+if (sessionStorage.getItem('cars_motorsport_auth') === '1') {
+  mostrarPortal();
+}
+</script>
+</body>
+</html>
